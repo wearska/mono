@@ -2,19 +2,19 @@ import {Directive, ElementRef, Renderer, Input} from 'angular2/core';
 import {CONST_EXPR, Type} from 'angular2/src/facade/lang';
 import {Logger} from '../../services/logger/logger';
 
-var SUFFIXES = /(-gt)?-(xs|sm|md|lg|xl)/g;
-var WHITESPACE = /\s+/g;
-var BREAKPOINTS = ["", "xs", "gt-xs", "sm", "gt-sm", "md", "gt-md", "lg", "gt-lg", "xl"];
+const SUFFIXES = /(-gt)?-(xs|sm|md|lg|xl)/g;
+const WHITESPACE = /\s+/g;
+const BREAKPOINTS = ["", "xs", "gt-xs", "sm", "gt-sm", "md", "gt-md", "lg", "gt-lg", "xl"];
 
-var FLEX_OPTIONS = ['grow', 'initial', 'auto', 'none', 'noshrink', 'nogrow'];
-var FLEX_VALUES = ['', '0', '5', '10', '15', '20', '25', '33', '35', '40', '45', '50', '55', '60', '65', '66', '70', '75', '80', '85', '90', '95', '100'];
-var FLEX_WITH_VALUES = ["flex", 'flex-xs', 'flex-gt-xs', 'flex-sm', 'flex-gt-sm', 'flex-md', 'flex-gt-md', 'flex-lg', 'flex-gt-lg', 'flex-xl', 'flex-order', 'flex-order-xs', 'flex-order-gt-xs', 'flex-order-sm', 'flex-order-gt-sm', 'flex-order-md', 'flex-order-gt-md', 'flex-order-lg', 'flex-order-gt-lg', 'flex-order-xl', 'flex-offset', 'flex-offset-xs', 'flex-offset-gt-xs', 'flex-offset-sm', 'flex-offset-gt-sm', 'flex-offset-md', 'flex-offset-gt-md', 'flex-offset-lg', 'flex-offset-gt-lg', 'flex-offset-xl'];
+const FLEX_OPTIONS = ['grow', 'initial', 'auto', 'none', 'noshrink', 'nogrow'];
+const FLEX_VALUES = ['', '0', '5', '10', '15', '20', '25', '33', '35', '40', '45', '50', '55', '60', '65', '66', '70', '75', '80', '85', '90', '95', '100'];
+const FLEX_WITH_VALUES = ["flex", 'flex-xs', 'flex-gt-xs', 'flex-sm', 'flex-gt-sm', 'flex-md', 'flex-gt-md', 'flex-lg', 'flex-gt-lg', 'flex-xl', 'flex-order', 'flex-order-xs', 'flex-order-gt-xs', 'flex-order-sm', 'flex-order-gt-sm', 'flex-order-md', 'flex-order-gt-md', 'flex-order-lg', 'flex-order-gt-lg', 'flex-order-xl', 'flex-offset', 'flex-offset-xs', 'flex-offset-gt-xs', 'flex-offset-sm', 'flex-offset-gt-sm', 'flex-offset-md', 'flex-offset-gt-md', 'flex-offset-lg', 'flex-offset-gt-lg', 'flex-offset-xl'];
 
-var LAYOUT_OPTIONS = ['row', 'column'];
-var LAYOUT_WITHOUT_VALUES = ['layout-wrap', 'layout-nowrap', 'layout-fill', 'layout-margin', 'layout-padding'];
-var LAYOUT_WITH_VALUES = ['layout', 'layout-xs', 'layout-gt-xs', 'layout-sm', 'layout-gt-sm', 'layout-md', 'layout-gt-md', 'layout-lg', 'layout-gt-lg', 'layout-xl', 'layout-align'];
-var ALIGNMENT_MAIN_AXIS = ["", "start", "center", "end", "stretch", "space-around", "space-between"];
-var ALIGNMENT_CROSS_AXIS = ["", "start", "center", "end", "stretch"];
+const LAYOUT_OPTIONS = ['row', 'column'];
+const LAYOUT_WITHOUT_OPTIONS = ['layout-wrap', 'layout-nowrap', 'layout-fill', 'layout-margin', 'layout-padding'];
+const LAYOUT_WITH_OPTIONS = ['layout', 'layout-xs', 'layout-gt-xs', 'layout-sm', 'layout-gt-sm', 'layout-md', 'layout-gt-md', 'layout-lg', 'layout-gt-lg', 'layout-xl', 'layout-align'];
+const ALIGNMENT_MAIN_AXIS = ["", "start", "center", "end", "stretch", "space-around", "space-between"];
+const ALIGNMENT_CROSS_AXIS = ["", "start", "center", "end", "stretch"];
 
 /*
 
@@ -38,7 +38,7 @@ export class Layout {
 
     // loop through our defined layout attributes that HAVE a value
     // and check if they're present on the element
-    LAYOUT_WITHOUT_VALUES.forEach((ATTR) => {
+    LAYOUT_WITHOUT_OPTIONS.forEach((ATTR) => {
       // if attribute exists send it's name to the classes array
       if (element.hasAttribute(ATTR)) {
         classes.push(ATTR);
@@ -47,7 +47,7 @@ export class Layout {
 
     // loop through our defined layout attributes that DON'T HAVE a value
     // and check if they're present on the element
-    LAYOUT_WITH_VALUES.forEach((ATTR) => {
+    LAYOUT_WITH_OPTIONS.forEach((ATTR) => {
       if (element.hasAttribute(ATTR)) { //if attribute exists
         let val: string = element.getAttribute(ATTR) + ''; // store it's value for use, as a string, it will return an empty string if not present
 
