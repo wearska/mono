@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>Mono</title>
@@ -7,8 +8,12 @@
   <script src="vendor/angular2/bundles/angular2-polyfills.js"></script>
   {{content-for 'head'}}
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="app.css">
 </head>
+
 <body>
   <mono-app>Loading...</mono-app>
 
@@ -30,4 +35,5 @@
     System.import('app.js').then(null, console.error.bind(console));
   </script>
 </body>
+
 </html>

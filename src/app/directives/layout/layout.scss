@@ -3,26 +3,18 @@
 *  Responsive attributes
 *
 *  References:
-*  1) https://scotch.io/tutorials/a-visual-guide-to-css3-flexbox-properties#flex
-*  2) https://css-tricks.com/almanac/properties/f/flex/
-*  3) https://css-tricks.com/snippets/css/a-guide-to-flexbox/
-*  4) https://github.com/philipwalton/flexbugs#3-min-height-on-a-flex-container-wont-apply-to-its-flex-items
-*  5) http://godban.com.ua/projects/flexgrid
+*  1) https://material.angularjs.org/latest/layout/introduction
+*  2) https://scotch.io/tutorials/a-visual-guide-to-css3-flexbox-properties#flex
+*  3) https://css-tricks.com/almanac/properties/f/flex/
+*  4) https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+*  5) https://github.com/philipwalton/flexbugs#3-min-height-on-a-flex-container-wont-apply-to-its-flex-items
+*  6) http://godban.com.ua/projects/flexgrid
 *
 *
 */
 
-@import "layout-attributes";
-
-@-moz-document url-prefix() {
-  .layout-fill {
-    margin: 0;
-    width: 100%;
-    min-height: 100%;
-    height: 100%;
-  }
-}
-
+@import "../../../core/style/mixins";
+@import "../../../core/style/variables";
 
 @mixin flex-order-for-name($sizes:null) {
   @if $sizes == null {
@@ -134,10 +126,12 @@
   // Do not use unitless flex-basis values in the flex shorthand because IE 10-11 will error.
   // Also use 0% instead of 0px since minifiers will often convert 0px to 0 (which is unitless and will have the same problem).
   // Safari, however, fails with flex-basis : 0% and requires flex-basis : 0px
-  @media screen\0 {
-      .#{$flexName} {
-        flex: 1 1 0%;
-      }
+  @if $name != '-print' {
+    @media screen\0 {
+        .#{$flexName} {
+          flex: 1 1 0%;
+        }
+    }
   }
 
 
@@ -185,15 +179,15 @@
   }
 
   .layout-row, .layout#{$name}-row {
-    > .#{$flexName}-33   , > .#{$flexName}-33     {  flex: 1 1 calc(100% / 3);  max-width: calc(100% / 3);  max-height: 100%; box-sizing: border-box; }
-    > .#{$flexName}-66   , > .#{$flexName}-66     {  flex: 1 1 calc(200% / 3);  max-width: calc(200% / 3);  max-height: 100%; box-sizing: border-box; }
+    > .#{$flexName}-33   , > .#{$flexName}-33     {  flex: 1 1 33.33%;  max-width: 33.33%;  max-height: 100%; box-sizing: border-box; }
+    > .#{$flexName}-66   , > .#{$flexName}-66     {  flex: 1 1 66.66%;  max-width: 66.66%;  max-height: 100%; box-sizing: border-box; }
 
     // Bug workaround for http://crbug.com/546034 - flex issues on Chrome 48
     > .flex                                       { min-width: 0;   }
   }
   .layout-column, .layout#{$name}-column {
-    > .#{$flexName}-33   , > .#{$flexName}-33     {  flex: 1 1 calc(100% / 3);  max-width: 100%;  max-height: calc(100% / 3); box-sizing: border-box; }
-    > .#{$flexName}-66   , > .#{$flexName}-66     {  flex: 1 1 calc(200% / 3);  max-width: 100%;  max-height: calc(200% / 3); box-sizing: border-box; }
+    > .#{$flexName}-33   , > .#{$flexName}-33     {  flex: 1 1 33.33%;  max-width: 100%;  max-height: 33.33%; box-sizing: border-box; }
+    > .#{$flexName}-66   , > .#{$flexName}-66     {  flex: 1 1 66.66%;  max-width: 100%;  max-height: 66.66%; box-sizing: border-box; }
 
     // Bug workaround for http://crbug.com/546034 - flex issues on Chrome 48
     > .flex                                       { min-height: 0;  }
@@ -434,6 +428,17 @@
     @include layout-for-name($name);
 }
 
+
+@-moz-document url-prefix() {
+  .layout-fill {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+    height: 100%;
+  }
+}
+
+
 /*
  *  Apply Mixins to create Layout/Flexbox styles
  *
@@ -458,6 +463,10 @@
  *         $layout-breakpoint-lg:     1920px !default;
  */
 
+
+/**
+* Classes
+*/
 
 @media (max-width: $layout-breakpoint-xs - 1) {
   // Xtra-SMALL  SCREEN
@@ -540,4 +549,110 @@
     display: none;
   }
 
+}
+
+// General printing Rules
+@media print {
+
+  .hide-print:not(.show-print):not(.show) {
+    display: none !important;
+  }
+}
+
+
+/**
+* Attributes
+*/
+
+
+@media (max-width: $layout-breakpoint-xs - 1) {
+  // Xtra-SMALL  SCREEN
+  [hide-xs], [hide] {
+    &:not([show-xs]):not([show]) {
+      display: none;
+    }
+  }
+  @include layouts_for_breakpoint(xs);
+}
+
+@media (min-width: $layout-breakpoint-xs) {
+  // BIGGER THAN Xtra-SMALL SCREEN
+  @include layouts_for_breakpoint(gt-xs);
+
+}
+
+@media (min-width: $layout-breakpoint-xs) and (max-width: $layout-breakpoint-sm - 1) {
+  // SMALL SCREEN
+  [hide-sm], [hide-gt-xs] {
+    &:not([show-gt-xs]):not([show-sm]):not([show]) {
+      display: none;
+    }
+  }
+  [hide-sm]:not([show-sm]):not([show]) {
+    display: none;
+  }
+  @include layouts_for_breakpoint(sm);
+}
+
+@media (min-width: $layout-breakpoint-sm) {
+  // BIGGER THAN SMALL SCREEN
+  @include layouts_for_breakpoint(gt-sm);
+
+}
+
+@media (min-width: $layout-breakpoint-sm) and (max-width: $layout-breakpoint-md - 1) {
+  // MEDIUM SCREEN
+  [hide], [hide-gt-xs], [hide-gt-sm] {
+      &:not([show-gt-xs]):not([show-gt-sm]):not([show-md]):not([show]) {
+        display: none;
+      }
+    }
+    [hide-md]:not([show-md]):not([show]) {
+      display: none;
+    }
+  @include layouts_for_breakpoint(md);
+}
+
+@media (min-width: $layout-breakpoint-md) {
+  // BIGGER THAN MEDIUM SCREEN
+  @include layouts_for_breakpoint(gt-md);
+}
+
+@media (min-width: $layout-breakpoint-md) and (max-width: $layout-breakpoint-lg - 1) {
+  // LARGE SCREEN
+  [hide],[hide-gt-xs], [hide-gt-sm], [hide-gt-md] {
+      &:not([show-gt-xs]):not([show-gt-sm]):not([show-gt-md]):not([show-lg]):not([show]) {
+        display: none;
+      }
+    }
+    [hide-lg]:not([show-lg]):not([show]) {
+      display: none;
+    }
+
+  @include layouts_for_breakpoint(lg);
+}
+
+@media (min-width: $layout-breakpoint-lg) {
+  // BIGGER THAN LARGE SCREEN
+  @include layouts_for_breakpoint(gt-lg);
+  @include layouts_for_breakpoint(xl);
+
+  // BIGGER THAN LARGE SCREEN
+  [hide], [hide-gt-xs], [hide-gt-sm], [hide-gt-md], [hide-gt-lg] {
+    &:not([show-gt-xs]):not([show-gt-sm]):not([show-gt-md]):not([show-gt-lg]):not([show-xl]):not([show]) {
+      display: none;
+    }
+  }
+  [hide-xl]:not([show-xl]):not([show-gt-lg]):not([show]) {
+    display: none;
+  }
+}
+
+@media print {
+  // PRINT
+  @include layouts_for_breakpoint(print);
+
+  [hide-print]:not([show-print]):not([show]) {
+    display: none;
+  }
 }

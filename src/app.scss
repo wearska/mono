@@ -1,4 +1,10 @@
 @import "core/style/structure";
 @import "core/style/typography";
-@import "core/style/layout";
+
 @import "core/style/demo";
+
+//-----------------------
+//Layout Directive
+//-----------------------
+
+@import "app/directives/layout/layout";

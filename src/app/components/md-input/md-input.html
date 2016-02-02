@@ -1,0 +1,5 @@
+<div class="md-input">
+    <input #input class="md-input__input" type="text" id="sample3" (focus)="focused = true" (blur)="focused = false">
+    <label class="md-input__label" [class.floating]="focused || input.value" for="sample3">Text...</label>
+    <div class="md-input__divider" [class.floating]="focused || input.value"></div>
+</div>

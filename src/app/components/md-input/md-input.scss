@@ -1,0 +1,83 @@
+.md-input {
+    background-color: rgba(0,0,0,.03);
+    position: relative;
+    font-size: 16px;
+    display: inline-block;
+    box-sizing: border-box;
+    width: 300px;
+    height: 72px;
+    max-width: 100%;
+    margin: 0;
+    padding: 8px 0;
+    &.dense{
+        height: 60px;
+        padding: 4px 0;
+    }
+    .md-input__input {
+        border: none;
+        border-bottom: 1px solid rgba(0,0,0,.12);
+        display: block;
+        position: absolute;
+        bottom: 7px;
+        height: 16px;
+        font-size: 16px;
+        line-height: 1;
+        font-weight: normal;
+        font-family: "Roboto", "Noto", sans-serif;
+        margin: 0;
+        padding: 8px 0;
+        width: 100%;
+        background: 0 0;
+        text-align: left;
+        color: inherit;
+        &:focus {
+            outline: none;
+        }
+    }
+    .md-input__label {
+        border-collapse: collapse;
+        bottom: 8px;
+        font-size: 16px;
+        height: 16px;
+        line-height: 1;
+        left: 0;
+        right: 0;
+        pointer-events: none;
+        position: absolute;
+        display: block;
+        width: 100%;
+        padding: 8px 0;
+        overflow: hidden;
+        white-space: nowrap;
+        text-align: left;
+        transition-duration: 0.2s;
+        transition-timing-function: cubic-bezier(.4,0,.2,1);
+        will-change: color, font-size, bottom, visibility;
+        color: rgba(0,0,0,.26);
+        &.floating {
+            color: rgb(63,81,181);
+            font-size: 12px;
+            line-height: 16px;
+            bottom: 32px;
+            padding: 16px 0 8px;
+            visibility: visible;
+            overflow: visible;
+        }
+    }
+    .md-input__divider {
+        background-color: #3f51b5;
+        height: 2px;
+        left: 45%;
+        position: absolute;
+        bottom: 7px;
+        transition-duration: 0.2s;
+        transition-timing-function: cubic-bezier(.4,0,.2,1);
+        visibility: hidden;
+        width: 10px;
+        &.floating {
+            width: 100%;
+            left: 0;
+            visibility: visible;
+        }
+    }
+}
